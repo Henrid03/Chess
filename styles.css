@@ -1,0 +1,33 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0; 
+    background-color: brown;
+}
+#Chessboard{
+    border: solid;
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8, 1fr);
+    width: 640px;
+    height: 640px;
+
+
+}
+.square{
+    width: 100%;
+    aspect-ratio: 1;
+    text-align: center;
+    font-size: 50px;
+}
+.w{
+    
+    background-color: white;
+    color: black;
+}
+.b{
+    background-color: black;
+    color: white;
+}
