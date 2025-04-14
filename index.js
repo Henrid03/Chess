@@ -1,63 +1,37 @@
 window.onload = function(){
 const board = document.getElementById("Chessboard");
 const files = ['a','b','c','d','e','f','g','h'];
-wsquares=document.getElementsByClassName('w');
-bsquares=document.getElementsByClassName('b');
-let increment = 0;
+let variable = 64;
+
+
 
 for(let row = 8; row >0; row --){
     for(let col = 0; col<8; col++){
         const square = document.createElement('div');
         const id = files[col]+row;
+        const numid = variable--;
         square.classList.add('square');
         if ((row + col) % 2 === 0) {
             square.classList.add('w');
           } else {
             square.classList.add('b');
           }
-          increment++;
-          const numid = increment;
           square.id=id;
-          const piece = square.textContent.trim();
-            let pieceType = "";
-            if (piece === "♙" || piece === "♟") {
-                pieceType = "pawn";
-            } else if (piece === "♞" || piece === "♘") {
-                pieceType = "knight";
-            } else if (piece === "♝" || piece === "♗") {
-                pieceType = "bishop";
-            } else if (piece === "♛" || piece === "♕") {
-                pieceType = "queen";
-            } else if (piece === "♚" || piece === "♔") {
-                pieceType = "king";
-            } else {
-                piecetype = "";
-                }
-            square.dataset.numid = numid ;
-            square.dataset.pieceType = pieceType;
-            square.dataset.id=id;
-          
-          
-          
+          square.dataset.numid=numid;
           board.appendChild(square);
-          square.addEventListener("click", function() {
-            console.log("Clicked:", square.id);
-            let wsquares = document.getElementsByClassName("w");
-            for (let square of wsquares) {
-                square.style.backgroundColor = "white";
-            }
+          square.addEventListener("click", 
+            function() 
+            {
+            console.log("Clicked:", square.id,"  ",square.dataset.numid, "  ", square.dataset.pieceType);
             
-            let bsquares = document.getElementsByClassName("b");
-            for (let square of bsquares) {
-                square.style.backgroundColor = "black";
-            }
-            square.style.backgroundColor = "yellow"; // test highlight
+            for (let square of document.getElementsByClassName('square')) {
+              square.classList.remove('highlight');
+          }
+          square.classList.add('highlight');
+          }
+
             
-            console.log("Piece on this square:", square.dataset.pieceType);
-
-
-
-    });
+          );
           }
           
 }
@@ -72,5 +46,26 @@ const initialPositions = {
     const piece = initialPositions[squareId];
     const square = document.getElementById(squareId);
     square.textContent = piece;
+    let pieceType = "blank";
+
+        if (piece === "♙" || piece === "♟") {
+            pieceType = "pawn";
+        } else if (piece === "♞" || piece === "♘") {
+            pieceType = "knight";
+        } else if (piece === "♝" || piece === "♗") {
+            pieceType = "bishop";
+        } else if (piece === "♛" || piece === "♕") {
+            pieceType = "queen";
+        } else if (piece === "♚" || piece === "♔") {
+            pieceType = "king";
+        } else if (piece === "♖" || piece === "♜") {
+            pieceType = "rook";
+        }
+        square.dataset.pieceType=pieceType;
+        if (pieceType !== "blank") {
+          square.style.cursor = "pointer";
+      }
+
   }
+  
 }
